@@ -21,7 +21,7 @@ const Graph = ({ data }) => {
 
     console.log(xy)
     return (
-        <XYPlot width={700} height={700} xDomain={[0, 50]} yDomain={[-5, 40]}>
+        <XYPlot width={700} height={700} xDomain={[0, 60]} yDomain={[-5, 40]}>
             <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
             <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
             <XAxis
