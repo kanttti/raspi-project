@@ -32,8 +32,8 @@ function App() {
 
   return (
     <div className="App">
+      <Graph data={data}/>
       <DataTable data={data} />
-      <Graph />
     </div>
   );
 }
