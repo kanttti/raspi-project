@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from "./components/DataTable"
+import Graph from "./components/Graph"
 import dataService from "./services/data"
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
   return (
     <div className="App">
       <DataTable data={data} />
+      <Graph />
     </div>
   );
 }
