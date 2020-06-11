@@ -13,8 +13,8 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 const dataSchema = new mongoose.Schema({
-    temperature: Number,
-    humidity: Number,
+    Temperature: String,
+    Tumidity: String,
     date: String
 })
 
