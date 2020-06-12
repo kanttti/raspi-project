@@ -10,11 +10,21 @@ import {
     LineSeries
 } from 'react-vis';
 
-const Graph = ({ data, timeperiod }) => {
+const Graph = ({ data }) => {
+
+    let timeMin = 24
+    let timeMax = 0
 
     const xy = data.map((data, i) => {
+        const splitTime = data.time.split(":")
+        const time = Number.parseFloat(splitTime[0] + "." + splitTime[1])
+        if (time <= timeMin) {
+            timeMin = time
+        } else if (time >= timeMax) {
+            timeMax = time
+        }
         return {
-            x: i,
+            x: time,
             y: Number.parseFloat(data.temperature)
         }
     })
@@ -28,7 +38,7 @@ const Graph = ({ data, timeperiod }) => {
     return (
         <div style={div_style}>
 
-            <XYPlot width={700} height={700} xDomain={[0, 60]} yDomain={[10, 40]}>
+            <XYPlot width={700} height={700} xDomain={[timeMin, timeMax]} yDomain={[10, 40]}>
                 <HorizontalGridLines style={{ stroke: '#858585' }} />
                 <VerticalGridLines style={{ stroke: '#858585' }} />
                 <XAxis
