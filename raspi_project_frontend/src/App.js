@@ -2,15 +2,29 @@ import React, { useState, useEffect } from 'react';
 import DataTable from "./components/DataTable"
 import Graph from "./components/Graph"
 import dataService from "./services/data"
-import Btn_Timeperiod from './components/Btn_Timeperiod';
+import BtnTimeperiod from './components/BtnTimeperiod';
 
 function App() {
 
   const [data, setData] = useState([])
-  const [timeperiod, setTimeperiod] = useState(0)
+  const [timePeriod, setTimePeriod] = useState(0)
 
-  const onClickHandlerTimeperiod = () => {
-    setTimeperiod(2)
+  const onClickHandlerPastWeek = () => {
+    dataService
+      .getPastWeek()
+      .then(data => {
+        setData(data)
+      })
+    setTimePeriod(1)
+  }
+
+  const onClickHandlerAllData = () => {
+    dataService
+      .getAll()
+      .then(data => {
+        setData(data)
+      })
+    setTimePeriod(0)
   }
 
   // Call this function once with useEffect to 
@@ -26,11 +40,13 @@ function App() {
   }
 
   // First get all data once.
-  // Then update data 100 times/hour (every 36 sec).
+  // Then update data 100 times/hour (every 36 sec)
   useEffect(getAllData, [])
   useEffect(() => {
     const interval = setInterval(() => {
-      getAllData()
+      if (timePeriod === 0) {
+        getAllData()
+      }
     }, 60000);
     return () => clearInterval(interval);
   }, []);
@@ -38,8 +54,9 @@ function App() {
 
   return (
     <div className="App">
-      <Btn_Timeperiod onClickHandler={onClickHandlerTimeperiod}/>
-      <Graph data={data} timeperiod={timeperiod}/>
+      <BtnTimeperiod txt="Past week" onClickHandler={onClickHandlerPastWeek} />
+      <BtnTimeperiod txt="All data" onClickHandler={onClickHandlerAllData} />
+      <Graph data={data} />
       <DataTable data={data} />
     </div>
   );

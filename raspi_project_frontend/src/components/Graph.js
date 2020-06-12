@@ -11,42 +11,39 @@ import {
 } from 'react-vis';
 
 const Graph = ({ data, timeperiod }) => {
-    let xy = [{}]
 
-    switch(timeperiod) {
-        case 0:
-            xy = data.map((data, i) => {
-                return {
-                    x: i,
-                    y: Number.parseFloat(data.temperature)
-                }
-            })
-            break;
-        case 2:
-            break;
-        default:
-            console.log("no data to show")
-            break;
+    const xy = data.map((data, i) => {
+        return {
+            x: i,
+            y: Number.parseFloat(data.temperature)
+        }
+    })
 
-    }
-    console.log(xy)
     return (
-        <XYPlot width={700} height={700} xDomain={[0, 60]} yDomain={[-5, 40]}>
-            <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
-            <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
+        <XYPlot width={700} height={700} xDomain={[0, 49]} yDomain={[10, 40]}>
+            <HorizontalGridLines style={{ stroke: '#858585' }} />
+            <VerticalGridLines style={{ stroke: '#858585' }} />
             <XAxis
                 title="Time"
                 style={{
-                    line: { stroke: '#ADDDE1' },
-                    ticks: { stroke: '#ADDDE1' },
-                    text: { stroke: 'none', fill: '#6b6b76', fontWeight: 600 }
+                    line: { stroke: '#000000' },
+                    ticks: { stroke: '#ff5a00' },
+                    text: { stroke: 'none', fill: '#000000', fontWeight: 800 }
                 }}
             />
-            <YAxis title="Temperature" />
+            <YAxis
+                title="Temperature"
+                style={{
+                    line: { stroke: '#000000' },
+                    ticks: { stroke: '#ff5a00' },
+                    text: { stroke: 'none', fill: '#000000', fontWeight: 800 }
+                }}
+            />
             <LineSeries
                 className="temperature-graph"
                 curve={curveCatmullRom.alpha(0.5)}
                 data={xy}
+                color="#ff5a00"
             />
         </XYPlot>
     );

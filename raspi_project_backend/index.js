@@ -15,6 +15,26 @@ app.use(express.static('build'))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :content'))
 app.use(cors())
 
+// Calculates date given parameter ago
+const getPastDate = (daysAgo) => {
+
+  const date = new Date();
+  const last = new Date(date.getTime() - (daysAgo * 24 * 60 * 60 * 1000));
+  let day = last.getDate();
+  let month = last.getMonth() + 1;
+  const year = last.getFullYear();
+
+  if (day < 10) {
+    day = "0" + day
+  }
+
+  if (month < 10) {
+    month = "0" + month
+  }
+
+  return `${year}/${month}/${day}`
+}
+
 // GET - /tempsensor/data - ALL DATA
 app.get("/tempSensor/data", (request, response, next) => {
 
@@ -28,18 +48,21 @@ app.get("/tempSensor/data", (request, response, next) => {
 // GET - /tempSensor/data/past_week - Get the past week from last sunday to next saturday
 app.get("/tempSensor/data/past_week", (request, respone, next) => {
 
-  const past_week_start = moment().subtract(0, 'weeks').startOf('week').format('YYYY/MM/DD')
-  const past_week_end = moment().subtract(0, 'weeks').endOf('week').format('YYYY/MM/DD')
+  const current_date = moment().format("YYYY/MM/DD")
+  const past_date = getPastDate(7) // Returns date 7 days ago
+
+  console.log(current_date)
+  console.log(past_date)
 
   Data.find({
     date: {
-      $gte: past_week_start,
-      $lt: past_week_end
+      $gte: past_date,
+      $lte: current_date
     }
   })
-  .then(data => {
-    respone.send(data)
-  })
+    .then(data => {
+      respone.send(data)
+    })
 })
 
 

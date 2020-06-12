@@ -7,4 +7,9 @@ const getAll = () => {
     return request.then(result => result.data)
 }
 
-export default { getAll }
+const getPastWeek = () => {
+    const request = axios.get(`${baseURL}/past_week`)
+    return request.then(result => result.data)
+}
+
+export default { getAll, getPastWeek }
