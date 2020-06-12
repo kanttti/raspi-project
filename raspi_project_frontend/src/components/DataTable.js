@@ -4,9 +4,10 @@ const DataTable = ({ data }) => {
     const rows = data.map((data, i) => {
         return (
             <tr key={i}>
-                <th>{data.Date}</th>
-                <th>{data.Temperature}</th>
-                <th>{data.Humidity}</th>
+                <th>{data.date}</th>
+                <th>{data.time}</th>
+                <th>{data.temperature}</th>
+                <th>{data.humidity}</th>
             </tr>
         )
     })
@@ -17,6 +18,7 @@ const DataTable = ({ data }) => {
                 <tbody>
                     <tr>
                         <th>Date</th>
+                        <th>Time</th>
                         <th>Temperature</th>
                         <th>Humidity</th>
                     </tr>

@@ -10,15 +10,25 @@ import {
     LineSeries
 } from 'react-vis';
 
-const Graph = ({ data }) => {
+const Graph = ({ data, timeperiod }) => {
+    let xy = [{}]
 
-    const xy = data.map((data, i) => {
-        return {
-            x: i,
-            y: Number.parseFloat(data.Temperature)
-        }
-    })
+    switch(timeperiod) {
+        case 0:
+            xy = data.map((data, i) => {
+                return {
+                    x: i,
+                    y: Number.parseFloat(data.temperature)
+                }
+            })
+            break;
+        case 2:
+            break;
+        default:
+            console.log("no data to show")
+            break;
 
+    }
     console.log(xy)
     return (
         <XYPlot width={700} height={700} xDomain={[0, 60]} yDomain={[-5, 40]}>
