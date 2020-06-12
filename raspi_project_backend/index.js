@@ -18,26 +18,28 @@ app.use(cors())
 // GET - /tempsensor/data - ALL DATA
 app.get("/tempSensor/data", (request, response, next) => {
 
-  const test = moment().subtract(0, 'weeks').startOf('week').format('YYYY/MM/DD')
-  const test_1 = moment().subtract(0, 'weeks').endOf('week').format('YYYY/MM/DD')
-
-  console.log(moment().subtract(0, 'weeks').startOf('week').format('YYYY/MM/DD'));
-  console.log(moment().subtract(0, 'weeks').endOf('week').format('YYYY/MM/DD'));
-
-  Data.find({
-    date: {
-      $gte: test_1
-    }
-  })
+  Data.find({})
     .then(allData => {
       response.send(allData)
     })
 
 })
 
+// GET - /tempSensor/data/past_week - Get the past week from last sunday to next saturday
 app.get("/tempSensor/data/past_week", (request, respone, next) => {
-  console.log(moment().subtract(0, 'weeks').startOf('week').format('YYYY/MM/DD'));
-  console.log(moment().subtract(0, 'weeks').endOf('week').format('YYYY/MM/DD'));
+
+  const past_week_start = moment().subtract(0, 'weeks').startOf('week').format('YYYY/MM/DD')
+  const past_week_end = moment().subtract(0, 'weeks').endOf('week').format('YYYY/MM/DD')
+
+  Data.find({
+    date: {
+      $gte: past_week_start,
+      $lt: past_week_end
+    }
+  })
+  .then(data => {
+    respone.send(data)
+  })
 })
 
 
