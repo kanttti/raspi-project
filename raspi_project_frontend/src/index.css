@@ -17,8 +17,10 @@ table {
 }
 
 .table-div {
+  display: block;
   margin: auto;
   width: 50%;
+  float: right;
 }
 
 th {
@@ -31,5 +33,11 @@ tr, td {
   font-size: 20px;
   border: 1px solid black;
   text-align: center;
+}
+
+
+
+.btn_time_period {
+  display: inline-block;
 }
 

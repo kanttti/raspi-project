@@ -12,4 +12,9 @@ const getPastWeek = () => {
     return request.then(result => result.data)
 }
 
-export default { getAll, getPastWeek }
+const getPastDay = () => {
+    const request = axios.get(`${baseURL}/past_day`)
+    return request.then(result => result.data)
+}
+
+export default { getAll, getPastWeek, getPastDay }

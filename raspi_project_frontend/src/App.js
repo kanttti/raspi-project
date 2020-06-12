@@ -9,6 +9,15 @@ function App() {
   const [data, setData] = useState([])
   const [timePeriod, setTimePeriod] = useState(0)
 
+  const onClickHandlerPastDay = () => {
+    dataService
+      .getPastDay()
+      .then(data => {
+        setData(data)
+      })
+    setTimePeriod(1)
+  }
+
   const onClickHandlerPastWeek = () => {
     dataService
       .getPastWeek()
@@ -17,6 +26,7 @@ function App() {
       })
     setTimePeriod(1)
   }
+
 
   const onClickHandlerAllData = () => {
     dataService
@@ -54,8 +64,11 @@ function App() {
 
   return (
     <div className="App">
+      <div>
       <BtnTimeperiod txt="Past week" onClickHandler={onClickHandlerPastWeek} />
+      <BtnTimeperiod txt="Past day" onClickHandler={onClickHandlerPastDay} />
       <BtnTimeperiod txt="All data" onClickHandler={onClickHandlerAllData} />
+      </div>
       <Graph data={data} />
       <DataTable data={data} />
     </div>

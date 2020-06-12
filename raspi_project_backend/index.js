@@ -45,7 +45,7 @@ app.get("/tempSensor/data", (request, response, next) => {
 
 })
 
-// GET - /tempSensor/data/past_week - Get the past week from last sunday to next saturday
+// GET - /tempSensor/data/past_week - Get past week data
 app.get("/tempSensor/data/past_week", (request, respone, next) => {
 
   const current_date = moment().format("YYYY/MM/DD")
@@ -65,6 +65,16 @@ app.get("/tempSensor/data/past_week", (request, respone, next) => {
     })
 })
 
+// GET - /tempSensor/data/past_week - Get past day data
+app.get("/tempSensor/data/past_day", (request, respone, next) => {
+
+const current_day = moment().format("YYYY/MM/DD")
+
+  Data.find({date: current_day})
+    .then(data => {
+      respone.send(data)
+    })
+})
 
 
 

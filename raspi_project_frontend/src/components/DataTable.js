@@ -19,8 +19,8 @@ const DataTable = ({ data }) => {
                     <tr>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Temperature</th>
-                        <th>Humidity</th>
+                        <th>Temperature C°</th>
+                        <th>Humidity %</th>
                     </tr>
                     {rows}
                 </tbody>
